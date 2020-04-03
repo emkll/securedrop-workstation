@@ -76,6 +76,10 @@ sd-log: prep-salt ## Provisions SD logging VM
 	sudo qubesctl --show-output state.sls sd-log
 	sudo qubesctl --show-output --skip-dom0 --targets sd-log-buster-template,sd-log state.highstate
 
+sd-chat: prep-salt
+	sudo qubesctl --show-output state.sls sd-chat
+	sudo qubesctl --show-output --skip-dom0 --targets sd-chat-template,sd-chat state.highstate
+
 clean-salt: assert-dom0 ## Purges SD Salt configuration from dom0
 	@./scripts/clean-salt
 
@@ -104,6 +108,9 @@ remove-sd-devices: assert-dom0 ## Destroys SD EXPORT VMs
 
 remove-sd-log: assert-dom0 ## Destroys SD logging VM
 	@./scripts/destroy-vm sd-log
+
+remove-sd-chat: assert-dom0 ## Destroys SD chat VM
+	@./scripts/destroy-vm sd-chat
 
 clean: assert-dom0 prep-salt ## Destroys all SD VMs
 	sudo qubesctl --show-output state.sls sd-clean-default-dispvm
